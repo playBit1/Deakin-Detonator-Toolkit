@@ -37,6 +37,13 @@ function MainLink({ icon, color, label, route }: MainLinkProps) {
     );
 }
 
+const GuideData = {
+    icon: <IconQuestionMark size={16} />,
+    color: "White",
+    label: "Guide",
+    route: "/beginner-guides",
+};
+
 const aboutData = {
     icon: <IconQuestionMark size={16} />,
     color: "orange",
@@ -72,7 +79,7 @@ const referencesData = {
     route: "/references",
 };
 
-const data = [aboutData, toolsData, attackVectorsData, walkthroughsData, referencesData];
+const data = [GuideData, aboutData, toolsData, attackVectorsData, walkthroughsData, referencesData];
 
 export function MainLinks() {
     const links = data.map((link) => <MainLink {...link} key={link.label} />);

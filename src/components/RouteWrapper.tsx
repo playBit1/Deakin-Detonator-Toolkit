@@ -96,6 +96,8 @@ import CVE202226134 from "./CVE-2022-26134/CVE-2022-26134";
 import Wafw00f from "./wafw00f/wafw00f";
 import Fping from "./Fping/Fping";
 import Subjack from "./Subjack/Subjack";
+import BPathPage from "../pages/BeginnerPath";
+import BGuide1 from "./beginnerGuide1/beginnerGuide1";
 
 export interface RouteProperties {
     name: string;
@@ -128,6 +130,13 @@ export const ROUTES: RouteProperties[] = [
         category: "",
     },
     {
+        name: "Guides",
+        path: "/beginner-guides",
+        element: <BPathPage />,
+        description: "Beginner guides page",
+        category: "",
+    },
+    {
         name: "Attack Vectors",
         path: "/attack-vectors",
         element: <AttackVectors />,
@@ -147,6 +156,34 @@ export const ROUTES: RouteProperties[] = [
         element: <ReferencesPage />,
         description: "Attack Vectors page",
         category: "",
+    },
+    {
+        name: "Lesson 1: My First Pentest",
+        path: "/beginner-guides/lesson1",
+        element: <BGuide1 />,
+        description: "Introduction to PenTesting",
+        category: "Low",
+    },
+    {
+        name: "Lesson 2: My First Pentest",
+        path: "/beginner-guides/lesson2",
+        element: <BPathPage />,
+        description: "Introduction to PenTesting",
+        category: "Low",
+    },
+    {
+        name: "Lesson 3: My First Pentest",
+        path: "/beginner-guides/lesson3",
+        element: <BPathPage />,
+        description: "Introduction to PenTesting",
+        category: "Low",
+    },
+    {
+        name: "Lesson 4: My First Pentest",
+        path: "/beginner-guides/lesson4",
+        element: <BPathPage />,
+        description: "Introduction to PenTesting",
+        category: "Medium",
     },
     {
         name: "CVE-2021-41773",
@@ -861,4 +898,8 @@ export function getAttackVectors() {
 
 export function getWalkthroughs() {
     return ROUTES.filter((route) => route.path.startsWith("/walkthroughs/"));
+}
+
+export function getBeginnerGuides() {
+    return ROUTES.filter((route) => route.path.startsWith("/beginner-guides/"));
 }
