@@ -3,59 +3,54 @@ import { Container, Title, Text, Card, Stack, Badge, Collapse, Button, Group, Gr
 import { BeginnerInformationContent } from "../BeginnerGuideLessonContent/BeginnerGuideLessonContent";
 import { IconCheck, IconRocket, IconArrowRight, IconArrowLeft } from "@tabler/icons";
 
-const BGuide1 = () => {
-    const guideData = BeginnerInformationContent[0];
+interface BGuideProps {
+    lessonIndex: number;
+}
 
-    // State to track current page index
-    const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
-
-    // State to track which lesson cards are expanded
+const BGuideLesson: React.FC<BGuideProps> = ({ lessonIndex }) => {
+    const guideData = BeginnerInformationContent[lessonIndex];
+    const [currentPageIndex, setCurrentPageIndex] = useState(0);
     const [openSection, setOpenSection] = useState<number | null>(null);
-
-    // Track viewed sections per page
-    const [viewedSections, setViewedSections] = useState<boolean[][]>(
+    const [viewedSections, setViewedSections] = useState(
         guideData.lessonContent.map((page) => page.pageContent.map(() => false))
     );
-
-    // Track if all sections on current page are viewed
-    const [currentPageComplete, setCurrentPageComplete] = useState<boolean>(false);
-
-    // Calculate if all sections on current page have been viewed
-    useEffect(() => {
-        const allViewed = viewedSections[currentPageIndex]?.every((section) => section === true) || false;
-        setCurrentPageComplete(allViewed);
-    }, [viewedSections, currentPageIndex]);
-
-    // Toggle function for expanding/collapsing content
-    const toggleSection = (sectionIndex: number): void => {
-        if (openSection !== sectionIndex) {
-            const updatedViewedSections = [...viewedSections];
-            updatedViewedSections[currentPageIndex][sectionIndex] = true;
-            setViewedSections(updatedViewedSections);
-        }
-
-        setOpenSection(openSection === sectionIndex ? null : sectionIndex);
-    };
-
-    // Navigation functions
-    const goToNextPage = () => {
-        if (currentPageIndex < guideData.lessonContent.length - 1) {
-            setCurrentPageIndex(currentPageIndex + 1);
-            setOpenSection(null); // Reset open section when changing pages
-        }
-    };
-
-    const goToPreviousPage = () => {
-        if (currentPageIndex > 0) {
-            setCurrentPageIndex(currentPageIndex - 1);
-            setOpenSection(null); // Reset open section when changing pages
-        }
-    };
+    const [currentPageComplete, setCurrentPageComplete] = useState(false);
 
     // Current page data
     const currentPageData = guideData.lessonContent[currentPageIndex];
     const isLastPage = currentPageIndex === guideData.lessonContent.length - 1;
     const isFirstPage = currentPageIndex === 0;
+
+    // Check if all sections on current page are viewed
+    useEffect(() => {
+        const allViewed = viewedSections[currentPageIndex]?.every((section) => section);
+        setCurrentPageComplete(allViewed);
+    }, [viewedSections, currentPageIndex]);
+
+    // Toggle section and mark as viewed
+    const toggleSection = (sectionIndex: number) => {
+        if (openSection !== sectionIndex) {
+            const updatedViewedSections = [...viewedSections];
+            updatedViewedSections[currentPageIndex][sectionIndex] = true;
+            setViewedSections(updatedViewedSections);
+        }
+        setOpenSection(openSection === sectionIndex ? null : sectionIndex);
+    };
+
+    // Navigation
+    const goToNextPage = () => {
+        if (!isLastPage) {
+            setCurrentPageIndex(currentPageIndex + 1);
+            setOpenSection(null);
+        }
+    };
+
+    const goToPreviousPage = () => {
+        if (!isFirstPage) {
+            setCurrentPageIndex(currentPageIndex - 1);
+            setOpenSection(null);
+        }
+    };
 
     return (
         <Container fluid>
@@ -64,7 +59,7 @@ const BGuide1 = () => {
                     <Grid.Col span={10}>
                         <Group>
                             <Title order={2}>{guideData.lessonName}</Title>
-                            <Badge color="blue" size="sm" variant="filled" style={{ width: "fit-content" }}>
+                            <Badge color="blue" size="sm" variant="filled">
                                 {guideData.lessonDifficulty}
                             </Badge>
                             <Badge
@@ -144,7 +139,6 @@ const BGuide1 = () => {
                                             {section.content}
                                         </Text>
 
-                                        {/* Render attack tool component if available */}
                                         {section.contentAttackToolClass && (
                                             <>
                                                 <Divider my="md" />
@@ -170,4 +164,4 @@ const BGuide1 = () => {
     );
 };
 
-export default BGuide1;
+export default BGuideLesson;

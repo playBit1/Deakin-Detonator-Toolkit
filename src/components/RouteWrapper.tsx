@@ -97,7 +97,6 @@ import Wafw00f from "./wafw00f/wafw00f";
 import Fping from "./Fping/Fping";
 import Subjack from "./Subjack/Subjack";
 import BPathPage from "../pages/BeginnerPath";
-import BGuide1 from "./beginnerGuide1/beginnerGuide1";
 
 export interface RouteProperties {
     name: string;
@@ -130,7 +129,7 @@ export const ROUTES: RouteProperties[] = [
         category: "",
     },
     {
-        name: "Guides",
+        name: "Beginner Guides",
         path: "/beginner-guides",
         element: <BPathPage />,
         description: "Beginner guides page",
@@ -158,32 +157,11 @@ export const ROUTES: RouteProperties[] = [
         category: "",
     },
     {
-        name: "Lesson 1: My First Pentest",
-        path: "/beginner-guides/lesson1",
-        element: <BGuide1 />,
-        description: "Introduction to PenTesting",
-        category: "Low",
-    },
-    {
-        name: "Lesson 2: My First Pentest",
-        path: "/beginner-guides/lesson2",
+        name: "Beginner Guide Lesson",
+        path: "/beginner-guides/lesson:lessonId",
         element: <BPathPage />,
-        description: "Introduction to PenTesting",
-        category: "Low",
-    },
-    {
-        name: "Lesson 3: My First Pentest",
-        path: "/beginner-guides/lesson3",
-        element: <BPathPage />,
-        description: "Introduction to PenTesting",
-        category: "Low",
-    },
-    {
-        name: "Lesson 4: My First Pentest",
-        path: "/beginner-guides/lesson4",
-        element: <BPathPage />,
-        description: "Introduction to PenTesting",
-        category: "Medium",
+        description: "Dynamic lesson router",
+        category: "",
     },
     {
         name: "CVE-2021-41773",
